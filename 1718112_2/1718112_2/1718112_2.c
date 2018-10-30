@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
+#include <ctype.h>
+#include <stdlib.h>
 
 typedef enum
 {
@@ -9,17 +11,22 @@ typedef enum
 } General_Result;
 
 void welcome_UI(char *option_choice);
-void info_input(void);
+char *info_input(int *game_times, int *name_length);
 
 int main()
 {
-	char *option_choice, a;
-	option_choice = &a;
+	char *option_choice, c_pbase, *name_addr;
+	int *game_times, t_pbase, *name_len, nl_pbase, i = 2;
+	option_choice = &c_pbase;
+	game_times = &t_pbase;
+	name_len = &nl_pbase;
 
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
 	{
-		name_input();
+		name_addr = info_input(game_times, name_len);
+		for (i = 0; i < *name_len; i++)
+			printf("%c", *(name_addr + i));
 	}
 
 	system("pause");
@@ -40,7 +47,7 @@ void welcome_UI(char *option_choice)
 	{
 		printf("Your choice is(a/b): ");
 		gets(user_choice);
-		fflush(stdin);
+		rewind(stdin);
 
 		if (strlen(user_choice) == 1)
 		{
@@ -63,12 +70,13 @@ void welcome_UI(char *option_choice)
 	}
 	else
 		printf("The game will exit...\n");
+	Sleep(1000);
 	*option_choice = user_choice[0];
 }
 
-void info_input(void)
+char *info_input(int *game_times, int *name_length)
 {
-	char user_name[256] = { 0 };
+	static char user_name[256] = { 0 }, user_times[256] = { 0 };
 	int i = 0;
 	General_Result name_result = result_Error, times_result = result_Error;
 
@@ -77,8 +85,9 @@ void info_input(void)
 	{
 		printf("Enter your name first, press \"ENTER\" to confirm:");
 		gets(user_name);
-		fflush(stdin);
+		rewind(stdin);
 
+		*name_length = strlen(user_name);
 		if (strlen(user_name) != 0)
 		{
 			for (i = 0; i < strlen(user_name); i++)
@@ -98,28 +107,32 @@ void info_input(void)
 		}
 	}
 
+	system("cls");
 	while (times_result == result_Error)
 	{
-		printf("Enter your name first, press \"ENTER\" to confirm:");
-		gets(user_name);
-		fflush(stdin);
+		times_result = result_OK;
+		printf("Enter the times you want to play(MUST BE A POSITIVE INTEGER!):");
+		gets(user_times);
+		rewind(stdin);
 
-		if (strlen(user_name) != 0)
+		if (strlen(user_times) != 0)
 		{
-			for (i = 0; i < strlen(user_name); i++)
+			for (i = 0; i < strlen(user_times); i++)
 			{
-				if (user_name[i] != 32)
+				if (!isdigit(user_times[i]))
 				{
-					name_result = result_OK;
+					times_result = result_Error;
 					break;
 				}
 			}
 		}
-		if (name_result == result_Error)
+		if (times_result == result_Error)
 		{
-			printf("The name cannot be space, please try again!\n");
+			printf("The times you input is illegal, please try again!\n");
 			Sleep(1500);
 			system("cls");
 		}
 	}
+	*game_times = atoi(user_times);
+	return user_name;
 }
