@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <Windows.h>
 
 typedef enum
 {
@@ -8,18 +9,18 @@ typedef enum
 } General_Result;
 
 void welcome_UI(char *option_choice);
+void info_input(void);
 
 int main()
 {
 	char *option_choice, a;
 	option_choice = &a;
+
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
 	{
-		printf("The game will start!\n");
+		name_input();
 	}
-	else
-		printf("The game will exit...\n");
 
 	system("pause");
 	return 0;
@@ -33,7 +34,7 @@ void welcome_UI(char *option_choice)
 	printf("Welcome to the EXCITING GAME!\n");
 	printf("Please choose the option with serial number before it.\n\n");
 	printf("\t\t\ta. START!\n\n");
-	printf("\t\t\tb. Exit\n\n");
+	printf("\t\t\tb. EXIT.\n\n");
 
 	while (user_result == result_Error)
 	{
@@ -56,5 +57,69 @@ void welcome_UI(char *option_choice)
 		if (user_result == result_Error)
 			printf("Your input is illegal, please try again!\n");
 	}
+	if (user_choice[0] == 'a')
+	{
+		printf("The game will start!\n");
+	}
+	else
+		printf("The game will exit...\n");
 	*option_choice = user_choice[0];
+}
+
+void info_input(void)
+{
+	char user_name[256] = { 0 };
+	int i = 0;
+	General_Result name_result = result_Error, times_result = result_Error;
+
+	system("cls");
+	while (name_result == result_Error)
+	{
+		printf("Enter your name first, press \"ENTER\" to confirm:");
+		gets(user_name);
+		fflush(stdin);
+
+		if (strlen(user_name) != 0)
+		{
+			for (i = 0; i < strlen(user_name); i++)
+			{
+				if (user_name[i] != 32)
+				{
+					name_result = result_OK;
+					break;
+				}
+			}
+		}
+		if (name_result == result_Error)
+		{
+			printf("The name cannot be space, please try again!\n");
+			Sleep(1500);
+			system("cls");
+		}
+	}
+
+	while (times_result == result_Error)
+	{
+		printf("Enter your name first, press \"ENTER\" to confirm:");
+		gets(user_name);
+		fflush(stdin);
+
+		if (strlen(user_name) != 0)
+		{
+			for (i = 0; i < strlen(user_name); i++)
+			{
+				if (user_name[i] != 32)
+				{
+					name_result = result_OK;
+					break;
+				}
+			}
+		}
+		if (name_result == result_Error)
+		{
+			printf("The name cannot be space, please try again!\n");
+			Sleep(1500);
+			system("cls");
+		}
+	}
 }

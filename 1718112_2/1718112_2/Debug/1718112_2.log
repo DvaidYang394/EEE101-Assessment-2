@@ -1,4 +1,4 @@
 ﻿  1718112_2.c
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(24): warning C4013: 'system' undefined; assuming extern returning int
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(41): warning C4013: 'gets' undefined; assuming extern returning int
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(42): warning C4013: 'gets' undefined; assuming extern returning int
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(84): warning C4018: '<': signed/unsigned mismatch
   1718112_2.vcxproj -> F:\XJTLU\Lessons\Year 2 Semester 1\EEE101\Assessment 2\1718112_2\Debug\1718112_2.exe
