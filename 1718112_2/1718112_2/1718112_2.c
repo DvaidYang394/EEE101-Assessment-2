@@ -15,7 +15,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length);
 
 int main()
 {
-	char *option_choice, c_pbase, **name_addr, na_pbase;
+	char *option_choice, c_pbase, **name_addr, *na_pbase;
 	int *game_times, t_pbase, *name_len, nl_pbase, i = 2;
 	option_choice = &c_pbase;
 	game_times = &t_pbase;
@@ -26,9 +26,7 @@ int main()
 	if (*option_choice == 'a')
 	{
 		info_input(name_addr, game_times, name_len);
-		printf("%c\n", **name_addr);
-		for (i = 0; i < *name_len; i++)
-			printf("%c", *(*name_addr + i));
+		
 	}
 
 	system("pause");
@@ -137,5 +135,4 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		}
 	}
 	*game_times = atoi(user_times);
-	return user_name;
 }
