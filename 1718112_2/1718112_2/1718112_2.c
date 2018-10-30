@@ -11,22 +11,24 @@ typedef enum
 } General_Result;
 
 void welcome_UI(char *option_choice);
-char *info_input(int *game_times, int *name_length);
+void info_input(char **user_name_addr, int *game_times, int *name_length);
 
 int main()
 {
-	char *option_choice, c_pbase, *name_addr;
+	char *option_choice, c_pbase, **name_addr, na_pbase;
 	int *game_times, t_pbase, *name_len, nl_pbase, i = 2;
 	option_choice = &c_pbase;
 	game_times = &t_pbase;
 	name_len = &nl_pbase;
+	name_addr = &na_pbase;
 
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
 	{
-		name_addr = info_input(game_times, name_len);
+		info_input(name_addr, game_times, name_len);
+		printf("%c\n", **name_addr);
 		for (i = 0; i < *name_len; i++)
-			printf("%c", *(name_addr + i));
+			printf("%c", *(*name_addr + i));
 	}
 
 	system("pause");
@@ -74,11 +76,12 @@ void welcome_UI(char *option_choice)
 	*option_choice = user_choice[0];
 }
 
-char *info_input(int *game_times, int *name_length)
+void info_input(char **user_name_addr, int *game_times, int *name_length)
 {
 	static char user_name[256] = { 0 }, user_times[256] = { 0 };
 	int i = 0;
 	General_Result name_result = result_Error, times_result = result_Error;
+	*user_name_addr = user_name;
 
 	system("cls");
 	while (name_result == result_Error)
