@@ -3,6 +3,14 @@
 #include <Windows.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <time.h>
+
+typedef enum
+{
+	rock = 0,
+	scissors,
+	paper
+} General_Select;
 
 typedef enum
 {
@@ -12,6 +20,8 @@ typedef enum
 
 void welcome_UI(char *option_choice);
 void info_input(char **user_name_addr, int *game_times, int *name_length);
+General_Select computer_select_get(void);
+General_Select user_select_get(void);
 
 int main()
 {
@@ -25,8 +35,9 @@ int main()
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
 	{
-		info_input(name_addr, game_times, name_len);
-		
+		//info_input(name_addr, game_times, name_len);
+		//computer_select_get();
+		user_select_get();
 	}
 
 	system("pause");
@@ -64,12 +75,14 @@ void welcome_UI(char *option_choice)
 		if (user_result == result_Error)
 			printf("Your input is illegal, please try again!\n");
 	}
+
 	if (user_choice[0] == 'a')
 	{
 		printf("The game will start!\n");
 	}
 	else
 		printf("The game will exit...\n");
+
 	Sleep(1000);
 	*option_choice = user_choice[0];
 }
@@ -135,4 +148,80 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		}
 	}
 	*game_times = atoi(user_times);
+}
+
+General_Select computer_select_get(void)
+{
+	int randnum = 0;
+	General_Select computer_select;
+
+	srand((unsigned int)time(NULL));
+	randnum = rand() % 3;
+	switch (randnum)
+	{
+	case 0:
+		computer_select = rock;
+		break;
+	case 1:
+		computer_select = scissors;
+		break;
+	default:
+		computer_select = paper;
+	}
+
+	return computer_select;
+}
+
+General_Select user_select_get(void)
+{
+	char select_input[256] = { 0 };
+	General_Result select_result = result_Error;
+	General_Select user_select;
+
+	system("cls");
+	printf("Please use a letter to choose what you want, the meanings are as follows:\n");
+	printf("r: Rock \t\t s: Scissors \t\t p: Paper\n");
+
+	while (select_result == result_Error)
+	{
+		printf("Your choice is(r/s/p): ");
+		gets(select_input);
+		rewind(stdin);
+
+		if (strlen(select_input) == 1)
+		{
+			switch (select_input[0])
+			{
+			case 'r':
+			case 's':
+			case 'p':
+				select_result = result_OK;
+				break;
+			default:
+				select_result = result_Error;
+			}
+		}
+		if (select_result == result_Error)
+		{
+			printf("Your input is illegal, please try again!\n");
+			Sleep(1000);
+		}
+	}
+
+	switch(select_input[0])
+	{
+	case 'r':
+		printf("Picture R!\n");
+		user_select = rock;
+		break;
+	case 's':
+		printf("Picture S!\n");
+		user_select = scissors;
+		break;
+	default:
+		printf("Picture P!\n");
+		user_select = paper;
+	}
+
+	return user_select;
 }
