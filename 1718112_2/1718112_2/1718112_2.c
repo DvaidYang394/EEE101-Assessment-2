@@ -14,6 +14,13 @@ typedef enum
 
 typedef enum
 {
+	computer = 0,
+	user,
+	none
+} Game_Player;
+
+typedef enum
+{
 	result_OK = 0,
 	result_Error
 } General_Result;
@@ -22,11 +29,15 @@ void welcome_UI(char *option_choice);
 void info_input(char **user_name_addr, int *game_times, int *name_length);
 General_Select computer_select_get(void);
 General_Select user_select_get(void);
+Game_Player rounds_UI(int *game_times);
+Game_Player compare(General_Select computer_select, General_Select user_select);
+void final_UI(Game_Player final_winner);
 
 int main()
 {
 	char *option_choice, c_pbase, **name_addr, *na_pbase;
 	int *game_times, t_pbase, *name_len, nl_pbase, i = 2;
+	Game_Player final_winner;
 	option_choice = &c_pbase;
 	game_times = &t_pbase;
 	name_len = &nl_pbase;
@@ -35,9 +46,9 @@ int main()
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
 	{
-		//info_input(name_addr, game_times, name_len);
-		//computer_select_get();
-		user_select_get();
+		info_input(name_addr, game_times, name_len);
+		final_winner = rounds_UI(game_times);
+		final_UI(final_winner);
 	}
 
 	system("pause");
@@ -161,12 +172,15 @@ General_Select computer_select_get(void)
 	{
 	case 0:
 		computer_select = rock;
+		printf("Computer choice is rock.\n\n");
 		break;
 	case 1:
 		computer_select = scissors;
+		printf("Computer choice is scissors.\n\n");
 		break;
 	default:
 		computer_select = paper;
+		printf("Computer choice is paper.\n\n");
 	}
 
 	return computer_select;
@@ -178,9 +192,8 @@ General_Select user_select_get(void)
 	General_Result select_result = result_Error;
 	General_Select user_select;
 
-	system("cls");
 	printf("Please use a letter to choose what you want, the meanings are as follows:\n");
-	printf("r: Rock \t\t s: Scissors \t\t p: Paper\n");
+	printf("r: Rock \t\t s: Scissors \t\t p: Paper\n\n");
 
 	while (select_result == result_Error)
 	{
@@ -211,17 +224,100 @@ General_Select user_select_get(void)
 	switch(select_input[0])
 	{
 	case 'r':
-		printf("Picture R!\n");
 		user_select = rock;
 		break;
 	case 's':
-		printf("Picture S!\n");
 		user_select = scissors;
 		break;
 	default:
-		printf("Picture P!\n");
 		user_select = paper;
 	}
 
 	return user_select;
+}
+
+Game_Player rounds_UI(int *game_times)
+{
+	int remain_games = *game_times, computer_win = 0, user_win = 0;
+	General_Select computer_select, user_select;
+	Game_Player current_winner, final_winner;
+
+	for (remain_games = *game_times; remain_games > 0; remain_games--)
+	{
+		system("cls");
+		printf("You have %d times to play!\n", remain_games);
+		printf("Score List:\n\n");
+		printf("YOU: %d\n", user_win);
+		printf("COMPUTER: %d\n\n", computer_win);
+
+		user_select = user_select_get();
+		computer_select = computer_select_get();
+		current_winner = compare(computer_select, user_select);
+		if (current_winner == computer)
+		{
+			printf("Computer win this time!\n");
+			computer_win++;
+		}
+		else if (current_winner == user)
+		{
+			printf("You win this time!\n");
+			user_win++;
+		}
+		else
+			printf("Nobody win this time!\n");
+
+		Sleep(2500);
+	}
+
+	if (computer_win > user_win) final_winner = computer;
+	else if (computer_win < user_win) final_winner = user;
+	else final_winner = none;
+
+	return final_winner;
+}
+
+Game_Player compare(General_Select computer_select, General_Select user_select)
+{
+	Game_Player current_winner;
+
+	if (computer_select == user_select) current_winner = none;
+	else
+	{
+		switch (computer_select)
+		{
+		case rock:
+			if (user_select == rock) current_winner = none;
+			if (user_select == scissors) current_winner = computer;
+			if (user_select == paper) current_winner = user;
+			break;
+		case scissors:
+			if (user_select == rock) current_winner = user;
+			if (user_select == scissors) current_winner = none;
+			if (user_select == paper) current_winner = computer;
+			break;
+		default:
+			if (user_select == rock) current_winner = computer;
+			if (user_select == scissors) current_winner = user;
+			if (user_select == paper) current_winner = none;
+		}
+
+		return current_winner;
+	}
+}
+
+void final_UI(Game_Player final_winner)
+{
+	system("cls");
+	switch (final_winner)
+	{
+	case computer:
+		printf("Sorry, you lose :(\n");
+		break;
+	case user:
+		printf("Congratulations! You win :)\n");
+		break;
+	default:
+		printf("Nobody win the game =_=\n");
+	}
+	Sleep(1500);
 }
