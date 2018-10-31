@@ -2,12 +2,13 @@
 ## Introduction
     This project is the Assessment 2 for EEE101.
     Goal: Design a Rock, Scissors and Paper game for user to against with computer.
+    IDE: Visual Studio
 ## Update Log:
 ### Basic information
     version:    1.0.0
     Author:     Ziqi Yang
     Date:       Oct 31, 2018
-    Time:       12:57 pm.
+    Time:       14:11 pm.
 ### Introduction:
     This is the first version of the full project.
 ### Functions:
