@@ -1,18 +1,18 @@
 # EEE101-Assessment-2
     The Assessment 2 for EEE101
 
-##Project Introduction
+## Project Introduction
     Goal: Design a Rock, Scissors and Paper game for user to against with computer.
 
-##Update Log:
+## Update Log:
 
-###version 1.0.0
-###Author: Ziqi Yang
-###Date:   Oct 31, 2018
-###Time:   12:57 pm.
-###Introduction:
+### version 1.0.0
+### Author: Ziqi Yang
+### Date:   Oct 31, 2018
+### Time:   12:57 pm.
+### Introduction:
     This is the first version of the full project.
-####Functions:
+#### Functions:
     1. Choose Start or Exit in the welcome UI.
         1) Illegal check
             a. Only 'a' and 'b' are allowed to input.
