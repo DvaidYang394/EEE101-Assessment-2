@@ -1,11 +1,9 @@
 # EEE101-Assessment-2
-    The Assessment 2 for EEE101
-
-## Project Introduction
+## Introduction
+    This project is the Assessment 2 for EEE101.
     Goal: Design a Rock, Scissors and Paper game for user to against with computer.
-
 ## Update Log:
-## Basic information
+### Basic information
     version: 1.0.0
     Author: Ziqi Yang
     Date:   Oct 31, 2018
