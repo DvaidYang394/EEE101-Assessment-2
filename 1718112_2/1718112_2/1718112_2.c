@@ -6,7 +6,7 @@
 #include <time.h>
 
 #define GET_ARRAY_LEN(array,len){len = (sizeof(array) / sizeof(array[0]));}
-#define rounds_Y_bias 10
+#define rounds_Y_bias 12
 #define rounds_user_X_bias 50
 
 typedef enum
@@ -39,7 +39,7 @@ void welcome_UI(char *option_choice);
 void info_input(char **user_name_addr, int *game_times, int *name_length);
 General_Select computer_select_get(int illegal_bias);
 General_Select user_select_get(int *illegal_bias);
-Game_Player rounds_UI(int *game_times);
+Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length);
 Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
 void printf_position(char *data, int init_X, int init_Y);
@@ -62,10 +62,7 @@ int main()
 	if (*option_choice == 'a')
 	{
 		info_input(name_addr, game_times, name_len);
-		//for (int i = 0; i < *name_len; i++)
-			//printf("%c", *(*name_addr + i));
-		//system("pause");
-		final_winner = rounds_UI(game_times);
+		final_winner = rounds_UI(name_addr, game_times, name_len);
 		final_UI(final_winner);
 	}
 
@@ -238,7 +235,7 @@ General_Select user_select_get(int *illegal_bias)
 		if (select_result == result_Error)
 		{
 			printf("Your input is illegal, please try again!\n\n");
-			*illegal_bias += 2;
+			*illegal_bias += 3;
 			Sleep(1000);
 		}
 	}
@@ -261,9 +258,9 @@ General_Select user_select_get(int *illegal_bias)
 	return user_select;
 }
 
-Game_Player rounds_UI(int *game_times)
+Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 {
-	int remain_games = *game_times, computer_win = 0, user_win = 0, *illegal_bias, ill_bias_pbase;
+	int remain_games = *game_times, computer_win = 0, user_win = 0, *illegal_bias, ill_bias_pbase, i;
 	General_Select computer_select, user_select;
 	Game_Player current_winner, final_winner;
 
@@ -272,9 +269,11 @@ Game_Player rounds_UI(int *game_times)
 	{
 		*illegal_bias = 0;
 		system("cls");
-		printf("You have %d times to play!\n", remain_games);
+		printf("You have %d times to play!\n\n", remain_games);
 		printf("Score List:\n\n");
-		printf("YOU: %d\n", user_win);
+		for (i = 0; i < *name_length; i++)
+			printf("%c", *(*user_name_addr + i));
+		printf("(YOU): %d\n\n", user_win);
 		printf("COMPUTER: %d\n\n", computer_win);
 
 		user_select = user_select_get(illegal_bias);
