@@ -16,6 +16,12 @@ typedef enum
 
 typedef enum
 {
+	mini = 0,
+	normal
+} Character_Size;
+
+typedef enum
+{
 	computer = 0,
 	user,
 	none
@@ -34,8 +40,9 @@ General_Select user_select_get(void);
 Game_Player rounds_UI(int *game_times);
 Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
-void printf_position(char *data, int initX, int initY);
-void print_scissors(void);
+void printf_position(char *data, int init_X, int init_Y);
+void printf_delta(char *data, int delta_X, int delta_Y);
+void print_scissors(Character_Size size);
 
 int main()
 {
@@ -55,7 +62,6 @@ int main()
 		final_UI(final_winner);
 	}
 
-	system("pause");
 	return 0;
 }
 
@@ -64,14 +70,15 @@ void welcome_UI(char *option_choice)
 	General_Result user_result = result_Error;
 	char user_choice[256] = { 0 };
 
-	printf_position("Welcome to the EXCITING GAME!\n\n",9,0);
-	printf("Please choose the option with serial number before it.\n\n");
-	printf_position("a. START!\n\n",19,4);
-	printf_position("b. EXIT.\n\n",19,6);
+	printf_position("Welcome to the EXCITING GAME!\n",9,0);
+	print_scissors(mini);
+	printf_delta("Please choose the option with serial number before it.\n",0,1);
+	printf_delta("a. START!\n",19,1);
+	printf_delta("b. EXIT.\n",19,1);
 
 	while (user_result == result_Error)
 	{
-		printf("Your choice is(a/b): ");
+		printf_delta("Your choice is(a/b): ",0,1);
 		gets(user_choice);
 		rewind(stdin);
 
@@ -232,6 +239,7 @@ General_Select user_select_get(void)
 		break;
 	case 's':
 		user_select = scissors;
+		print_scissors(normal);
 		break;
 	default:
 		user_select = paper;
@@ -326,26 +334,56 @@ void final_UI(Game_Player final_winner)
 	Sleep(1500);
 }
 
-void printf_position(char *data, int initX, int initY)
+void printf_position(char *data, int init_X, int init_Y)
 {
-	HANDLE handle;
+	HANDLE hd;
 	COORD position;
-	CONSOLE_SCREEN_BUFFER_INFO console_buf;
 
-	position.X = initX;
-	position.Y = initY;
-	handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
+	hd = GetStdHandle(STD_OUTPUT_HANDLE);
+	position.X = init_X;
+	position.Y = init_Y;
+
+	SetConsoleCursorPosition(hd, position);
 	printf("%s", data);
 }
 
-void print_scissors(void)
+void printf_delta(char *data, int delta_X, int delta_Y)
 {
-	int x[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17 };
-	int y[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20 };
+	HANDLE hd;
+	COORD position;
+	CONSOLE_SCREEN_BUFFER_INFO console_buf;
+
+	hd = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfo(hd, &console_buf);
+	position.X = console_buf.dwCursorPosition.X;
+	position.Y = console_buf.dwCursorPosition.Y;
+	position.X += delta_X;
+	position.Y += delta_Y;
+	
+	SetConsoleCursorPosition(hd, position);
+	printf("%s", data);
+}
+
+void print_scissors(Character_Size size)
+{
+	int x_normal[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17 };
+	int y_normal[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20 };
+	int x_mini[] = {2,3,6,3,5,4,5,3,6,3,2};
+	int y_mini[] = {2,2,2,3,3,4,5,5,6,6,6};
 	int pos_len;
 
-	GET_ARRAY_LEN(x, pos_len);
-	for (int i = 0; i < pos_len; i++)
-		printf_position("*", x[i], y[i]);
+	if (size == normal)
+	{
+		GET_ARRAY_LEN(x_normal, pos_len);
+		for (int i = 0; i < pos_len; i++)
+			printf_position("*", x_normal[i] * 2.5, y_normal[i]);
+		printf("\n");
+	}
+	else
+	{
+		GET_ARRAY_LEN(x_mini, pos_len);
+		for (int i = 0; i < pos_len; i++)
+			printf_position("*", x_mini[i] * 2, y_mini[i]);
+		printf("\n");
+	}
 }
