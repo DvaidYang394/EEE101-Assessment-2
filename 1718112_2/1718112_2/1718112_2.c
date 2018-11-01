@@ -44,7 +44,7 @@ General_Select computer_select_get();
 General_Select user_select_get();
 Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length);
 Game_Player compare(General_Select computer_select, General_Select user_select);
-void final_UI(Game_Player final_winner);
+void final_UI(Game_Player final_winner, char *option_choice);
 void printf_position(char *data, int init_X, int init_Y);
 void printf_delta(char *data, int delta_X, int delta_Y);
 void print_rock(Character_Size size, int bias_X, int bias_Y);
@@ -62,11 +62,11 @@ int main()
 	name_addr = &na_pbase;
 
 	welcome_UI(option_choice);
-	if (*option_choice == 'a')
+	while (*option_choice == 'a' || *option_choice == 'y')
 	{
 		info_input(name_addr, game_times, name_len);
 		final_winner = rounds_UI(name_addr, game_times, name_len);
-		final_UI(final_winner);
+		final_UI(final_winner, option_choice);
 	}
 
 	return 0;
@@ -76,6 +76,7 @@ void welcome_UI(char *option_choice)
 {
 	General_Result user_result = result_Error;
 	char user_choice[256] = { 0 };
+	int i = 0;
 
 	printf_position("Welcome to the EXCITING GAME!\n",13,0);
 	print_rock(mini, -1, 0);
@@ -87,7 +88,7 @@ void welcome_UI(char *option_choice)
 
 	while (user_result == result_Error)
 	{
-		printf_delta("Your choice is(a/b): ",0,1);
+		printf_position("Your choice is(a/b): ",12,15);
 		gets(user_choice);
 		rewind(stdin);
 
@@ -104,15 +105,21 @@ void welcome_UI(char *option_choice)
 			}
 		}
 		if (user_result == result_Error)
-			printf("Your input is illegal, please try again!\n");
+		{
+			printf_delta("Your input is illegal, please try again!\n", 4, 1);
+			Sleep(1000);
+			printf_delta("                                                  \n\n", 0, -3);
+			for (i = 0; i < 50; i++)
+				printf(" ");
+		}
 	}
 
 	if (user_choice[0] == 'a')
 	{
-		printf("The game will start!\n");
+		printf_delta("The game will start!", 12, 1);
 	}
 	else
-		printf("The game will exit...\n");
+		printf_delta("The game will exit...", 12, 1);
 
 	Sleep(1000);
 	*option_choice = user_choice[0];
@@ -171,6 +178,11 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 				}
 			}
 		}
+		if (times_result == result_OK)
+		{
+			*game_times = atoi(user_times);
+			if (*game_times == 0) times_result = result_Error;
+		}
 		if (times_result == result_Error)
 		{
 			printf("The times you input is illegal, please try again!\n");
@@ -178,7 +190,6 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 			system("cls");
 		}
 	}
-	*game_times = atoi(user_times);
 }
 
 General_Select computer_select_get()
@@ -281,7 +292,7 @@ Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 		current_winner = compare(computer_select, user_select);
 		if (current_winner == computer)
 		{
-			printf_position("Computer win this time!\n", 0, rounds_Y_current_result_pos);
+			printf_position("Computer wins this time!\n", 0, rounds_Y_current_result_pos);
 			computer_win++;
 		}
 		else if (current_winner == user)
@@ -290,7 +301,7 @@ Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 			user_win++;
 		}
 		else
-			printf_position("Nobody win this time!\n", 0, rounds_Y_current_result_pos);
+			printf_position("Nobody wins this time!\n", 0, rounds_Y_current_result_pos);
 
 		printf("\nPress \"Enter\" to continue game...");
 		rewind(stdin);
@@ -333,21 +344,63 @@ Game_Player compare(General_Select computer_select, General_Select user_select)
 	return current_winner;
 }
 
-void final_UI(Game_Player final_winner)
+void final_UI(Game_Player final_winner, char *option_choice)
 {
+	General_Result user_result = result_Error;
+	char user_choice[256] = { 0 };
+	int i = 0;
+
 	system("cls");
 	switch (final_winner)
 	{
 	case computer:
-		printf("Sorry, you lose :(\n");
+		printf("Sorry, you lose :(\n\n");
 		break;
 	case user:
-		printf("Congratulations! You win :)\n");
+		printf("Congratulations! You win :)\n\n");
 		break;
 	default:
-		printf("Nobody win the game =_=\n");
+		printf("Nobody win the game =_=\n\n");
 	}
-	Sleep(1500);
+
+	while (user_result == result_Error)
+	{
+		printf("Would you like to play again(y/n): ");
+		gets(user_choice);
+		rewind(stdin);
+
+		if (strlen(user_choice) == 1)
+		{
+			switch (user_choice[0])
+			{
+			case 'y':
+			case 'n':
+				user_result = result_OK;
+				break;
+			default:
+				user_result = result_Error;
+			}
+		}
+		if (user_result == result_Error)
+		{
+			printf_delta("Your input is illegal, please try again!\n", 0, 1);
+			Sleep(1000);
+			printf_delta("                                                  \n\n", 0, -3);
+			for (i = 0; i < 50; i++)
+				printf(" ");
+			printf_delta("", -50, -2);
+		}
+	}
+
+	if (user_choice[0] == 'y')
+	{
+		printf_delta("The game will start!", 0, 1);
+	}
+	else
+		printf_delta("The game will exit...", 0, 1);
+
+	Sleep(1000);
+	*option_choice = user_choice[0];
 }
 
 void printf_position(char *data, int init_X, int init_Y)
