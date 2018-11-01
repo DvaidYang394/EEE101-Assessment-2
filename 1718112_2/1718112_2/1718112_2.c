@@ -6,6 +6,8 @@
 #include <time.h>
 
 #define GET_ARRAY_LEN(array,len){len = (sizeof(array) / sizeof(array[0]));}
+#define rounds_Y_bias 10
+#define rounds_user_X_bias 50
 
 typedef enum
 {
@@ -187,15 +189,15 @@ General_Select computer_select_get(void)
 	{
 	case 0:
 		computer_select = rock;
-		printf("Computer choice is rock.\n\n");
+		print_rock(normal, 0, rounds_Y_bias);
 		break;
 	case 1:
 		computer_select = scissors;
-		printf("Computer choice is scissors.\n\n");
+		print_scissors(normal, 0, rounds_Y_bias);
 		break;
 	default:
 		computer_select = paper;
-		printf("Computer choice is paper.\n\n");
+		print_paper(normal, 0, rounds_Y_bias);
 	}
 
 	return computer_select;
@@ -212,7 +214,8 @@ General_Select user_select_get(void)
 
 	while (select_result == result_Error)
 	{
-		printf("Your choice is(r/s/p): ");
+		printf("Computer choice is:");
+		printf_delta("Your choice is(r/s/p): ", 30, 0);
 		gets(select_input);
 		rewind(stdin);
 
@@ -240,15 +243,15 @@ General_Select user_select_get(void)
 	{
 	case 'r':
 		user_select = rock;
-		print_rock(normal, 0, 10);
+		print_rock(normal, rounds_user_X_bias, rounds_Y_bias);
 		break;
 	case 's':
 		user_select = scissors;
-		print_scissors(normal, 0, 10);
+		print_scissors(normal, rounds_user_X_bias, rounds_Y_bias);
 		break;
 	default:
 		user_select = paper;
-		print_paper(normal, 0, 10);
+		print_paper(normal, rounds_user_X_bias, rounds_Y_bias);
 	}
 
 	return user_select;
@@ -273,16 +276,16 @@ Game_Player rounds_UI(int *game_times)
 		current_winner = compare(computer_select, user_select);
 		if (current_winner == computer)
 		{
-			printf("Computer win this time!\n");
+			printf_delta("Computer win this time!\n", 0, 2);
 			computer_win++;
 		}
 		else if (current_winner == user)
 		{
-			printf("You win this time!\n");
+			printf_delta("You win this time!\n", 0, 2);
 			user_win++;
 		}
 		else
-			printf("Nobody win this time!\n");
+			printf_delta("Nobody win this time!\n", 0, 2);
 
 		Sleep(2500);
 	}
