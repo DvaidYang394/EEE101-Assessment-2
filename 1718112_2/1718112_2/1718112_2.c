@@ -89,8 +89,8 @@ void welcome_UI(char *option_choice)
 	while (user_result == result_Error)
 	{
 		printf_position("Your choice is(a/b): ",12,15);
-		gets(user_choice);
 		rewind(stdin);
+		gets(user_choice);
 
 		if (strlen(user_choice) == 1)
 		{
@@ -136,8 +136,8 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 	while (name_result == result_Error)
 	{
 		printf("Enter your name first, press \"ENTER\" to confirm:");
-		gets(user_name);
 		rewind(stdin);
+		gets(user_name);
 
 		*name_length = strlen(user_name);
 		if (strlen(user_name) != 0)
@@ -153,7 +153,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		}
 		if (name_result == result_Error)
 		{
-			printf("The name cannot be space, please try again!\n");
+			printf("\nThe name cannot be space, please try again!");
 			Sleep(1500);
 			system("cls");
 		}
@@ -163,9 +163,9 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 	while (times_result == result_Error)
 	{
 		times_result = result_OK;
-		printf("Enter the times you want to play(MUST BE A POSITIVE INTEGER!):");
-		gets(user_times);
+		printf("Enter the times you want to play(must be a POSITIVE INTEGER and SMALLER THAN 50!):");
 		rewind(stdin);
+		gets(user_times);
 
 		if (strlen(user_times) != 0)
 		{
@@ -181,11 +181,11 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		if (times_result == result_OK)
 		{
 			*game_times = atoi(user_times);
-			if (*game_times == 0) times_result = result_Error;
+			if (*game_times == 0 || *game_times >= 50) times_result = result_Error;
 		}
 		if (times_result == result_Error)
 		{
-			printf("The times you input is illegal, please try again!\n");
+			printf("\nThe times you input is illegal, please try again!");
 			Sleep(1500);
 			system("cls");
 		}
@@ -220,6 +220,7 @@ General_Select computer_select_get()
 General_Select user_select_get()
 {
 	char select_input[256] = { 0 };
+	int i = 0;
 	General_Result select_result = result_Error;
 	General_Select user_select;
 
@@ -230,8 +231,8 @@ General_Select user_select_get()
 	{
 		printf_position("Computer choice is:", 0, 11);
 		printf_delta("Your choice is(r/s/p): ", 30, 0);
-		gets(select_input);
 		rewind(stdin);
+		gets(select_input);
 
 		if (strlen(select_input) == 1)
 		{
@@ -248,8 +249,11 @@ General_Select user_select_get()
 		}
 		if (select_result == result_Error)
 		{
-			printf("Your input is illegal, please try again!\n\n");
-			Sleep(1000);
+			printf("\nYour input is illegal, please try again!\n");
+			Sleep(1500);
+			printf_delta("                                                                               \n\n", 0, -3);
+			for (i = 0; i < 50; i++)
+				printf(" ");
 		}
 	}
 
@@ -366,8 +370,8 @@ void final_UI(Game_Player final_winner, char *option_choice)
 	while (user_result == result_Error)
 	{
 		printf("Would you like to play again(y/n): ");
-		gets(user_choice);
 		rewind(stdin);
+		gets(user_choice);
 
 		if (strlen(user_choice) == 1)
 		{
@@ -384,7 +388,7 @@ void final_UI(Game_Player final_winner, char *option_choice)
 		if (user_result == result_Error)
 		{
 			printf_delta("Your input is illegal, please try again!\n", 0, 1);
-			Sleep(1000);
+			Sleep(1500);
 			printf_delta("                                                  \n\n", 0, -3);
 			for (i = 0; i < 50; i++)
 				printf(" ");

@@ -5,16 +5,13 @@
     IDE: Visual Studio
 ## Update Log:
 ### Basic information
-    version:    2.3.0
+    version:    2.4.0
     Author:     Ziqi Yang
     Date:       Nov 2, 2018
-    Time:       1:39 am.
+    Time:       2:00 am.
 ### Update details
-    1. Add functions:
-        Ask user to choose whether to play again in final UI.
-
-    2. Improve:
-        Change all re-input in newline to the original position.
+    1. Repair bugs:
+        Repair the bug of re-input in newline in rounds UI.
 ### Introduction:
     This the new version, which improve the vision of user in this game. The pictures of rock, scissors 
     and paper is added in the welcome UI and rounds UI.
