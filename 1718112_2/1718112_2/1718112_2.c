@@ -42,7 +42,6 @@ int main()
 	game_times = &t_pbase;
 	name_len = &nl_pbase;
 	name_addr = &na_pbase;
-	printf("Test for Gitu.\n");
 
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
