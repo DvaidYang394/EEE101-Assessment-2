@@ -5,12 +5,12 @@
     IDE: Visual Studio
 ## Update Log:
 ### Basic information
-    version:    1.0.0
+    version:    2.0.0
     Author:     Ziqi Yang
-    Date:       Oct 31, 2018
-    Time:       14:11 pm.
+    Date:       Nov 1, 2018
+    Time:       17:01 pm.
 ### Introduction:
-    This is the first version of the full project.
+    This the new version, which improve the vision of user in this game. The pictures of rock, scissors and paper is added in the welcome UI and rounds UI.
 ### Functions:
     1. Choose Start or Exit in the welcome UI.
         1) Illegal check
@@ -28,4 +28,6 @@
             a. Only 'r', 's' and 'p' are allowed to input.
             b. If the input is illegal, ask user to input again until the input is correct.
     
-    4. Give the result in the final UI.
+    4. Show the picture of the character that user and computer chosen, give the result of the current game.
+
+    5. Give the result in the final UI.
