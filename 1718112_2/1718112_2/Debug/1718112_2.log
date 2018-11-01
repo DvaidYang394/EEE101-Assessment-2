@@ -1,5 +1,4 @@
 ﻿  1718112_2.c
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(55): warning C4101: 'final_winner': unreferenced local variable
 f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(91): warning C4013: 'gets' undefined; assuming extern returning int
 f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(138): warning C4018: '<': signed/unsigned mismatch
 f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(165): warning C4018: '<': signed/unsigned mismatch

@@ -62,11 +62,11 @@ int main()
 	if (*option_choice == 'a')
 	{
 		info_input(name_addr, game_times, name_len);
-		for (int i = 0; i < *name_len; i++)
-			printf("%c", *(*name_addr + i));
-		system("pause");
-		//final_winner = rounds_UI(game_times);
-		//final_UI(final_winner);
+		//for (int i = 0; i < *name_len; i++)
+			//printf("%c", *(*name_addr + i));
+		//system("pause");
+		final_winner = rounds_UI(game_times);
+		final_UI(final_winner);
 	}
 
 	return 0;
