@@ -2,8 +2,6 @@
 f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(86): warning C4013: 'gets' undefined; assuming extern returning int
 f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(133): warning C4018: '<': signed/unsigned mismatch
 f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(160): warning C4018: '<': signed/unsigned mismatch
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(383): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(407): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(431): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(322): warning C4715: 'compare': not all control paths return a value
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(385): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(409): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
   1718112_2.vcxproj -> F:\XJTLU\Lessons\Year 2 Semester 1\EEE101\Assessment 2\1718112_2\Debug\1718112_2.exe
