@@ -107,7 +107,7 @@ void welcome_UI(char *option_choice)
 		if (user_result == result_Error)
 		{
 			printf_delta("Your input is illegal, please try again!\n", 4, 1);
-			Sleep(1000);
+			Sleep(1500);
 			printf_delta("                                                  \n\n", 0, -3);
 			for (i = 0; i < 50; i++)
 				printf(" ");
@@ -132,9 +132,9 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 	General_Result name_result = result_Error, times_result = result_Error;
 	*user_name_addr = user_name;
 
-	system("cls");
 	while (name_result == result_Error)
 	{
+		system("cls");
 		printf("Enter your name first, press \"ENTER\" to confirm:");
 		rewind(stdin);
 		gets(user_name);
@@ -147,6 +147,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 				if (user_name[i] != 32)
 				{
 					name_result = result_OK;
+					printf("\n");
 					break;
 				}
 			}
@@ -155,11 +156,9 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		{
 			printf("\nThe name cannot be space, please try again!");
 			Sleep(1500);
-			system("cls");
 		}
 	}
 
-	system("cls");
 	while (times_result == result_Error)
 	{
 		times_result = result_OK;
@@ -185,9 +184,12 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		}
 		if (times_result == result_Error)
 		{
-			printf("\nThe times you input is illegal, please try again!");
+			printf("\nThe times you input is illegal, please try again!\n");
 			Sleep(1500);
-			system("cls");
+			printf_delta("                                                                                    \n\n", 0, -3);
+			for (i = 0; i < 50; i++)
+				printf(" ");
+			printf_delta("", -50, -2);
 		}
 	}
 }

@@ -5,13 +5,13 @@
     IDE: Visual Studio
 ## Update Log:
 ### Basic information
-    version:    2.4.0
+    version:    2.5.0
     Author:     Ziqi Yang
     Date:       Nov 2, 2018
-    Time:       2:00 am.
+    Time:       2:10 am.
 ### Update details
     1. Repair bugs:
-        Repair the bug of re-input in newline in rounds UI.
+        Combine the name and times input together.
 ### Introduction:
     This the new version, which improve the vision of user in this game. The pictures of rock, scissors 
     and paper is added in the welcome UI and rounds UI.
