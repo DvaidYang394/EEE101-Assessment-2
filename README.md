@@ -5,12 +5,21 @@
     IDE: Visual Studio
 ## Update Log:
 ### Basic information
-    version:    2.0.0
+    version:    2.1.0
     Author:     Ziqi Yang
     Date:       Nov 1, 2018
-    Time:       17:01 pm.
+    Time:       22:46 pm.
+### Update details
+    1. Repair bugs:
+        Fix the print position error of the characters in rounds UI.
+    
+    2. Optimizing the program GUI.
+
+    3. Add functions:
+        Print user name in the score list in rounds UI.
 ### Introduction:
-    This the new version, which improve the vision of user in this game. The pictures of rock, scissors and paper is added in the welcome UI and rounds UI.
+    This the new version, which improve the vision of user in this game. The pictures of rock, scissors and paper is added
+    in the welcome UI and rounds UI.
 ### Functions:
     1. Choose Start or Exit in the welcome UI.
         1) Illegal check
