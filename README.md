@@ -19,7 +19,7 @@
         Print user name in the score list in rounds UI.
 ### Introduction:
     This the new version, which improve the vision of user in this game. The pictures of rock, scissors 
-    <br/>and paper is added in the welcome UI and rounds UI.
+    and paper is added in the welcome UI and rounds UI.
 ### Functions:
     1. Choose Start or Exit in the welcome UI.
         1) Illegal check
