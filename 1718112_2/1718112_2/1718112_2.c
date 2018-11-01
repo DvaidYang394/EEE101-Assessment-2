@@ -42,7 +42,7 @@ int main()
 	game_times = &t_pbase;
 	name_len = &nl_pbase;
 	name_addr = &na_pbase;
-	printf("Test for Github.\n")
+	printf("Test for Github.\n");
 
 	welcome_UI(option_choice);
 	if (*option_choice == 'a')
