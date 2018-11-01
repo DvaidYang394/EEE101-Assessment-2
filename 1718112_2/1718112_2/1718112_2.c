@@ -62,8 +62,11 @@ int main()
 	if (*option_choice == 'a')
 	{
 		info_input(name_addr, game_times, name_len);
-		final_winner = rounds_UI(game_times);
-		final_UI(final_winner);
+		for (int i = 0; i < *name_len; i++)
+			printf("%c", *(*name_addr + i));
+		system("pause");
+		//final_winner = rounds_UI(game_times);
+		//final_UI(final_winner);
 	}
 
 	return 0;
@@ -290,7 +293,9 @@ Game_Player rounds_UI(int *game_times)
 		else
 			printf_delta("Nobody win this time!\n", 0, 2);
 
-		Sleep(2500);
+		printf("\nPress \"Enter\" to continue game...");
+		rewind(stdin);
+		while (getchar() != '\n');
 	}
 
 	if (computer_win > user_win) final_winner = computer;
