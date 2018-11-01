@@ -35,10 +35,10 @@ Game_Player rounds_UI(int *game_times);
 Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
 void printf_position(char *data, int initX, int initY);
+void print_scissors(void);
 
 int main()
 {
-	/*
 	char *option_choice, c_pbase, **name_addr, *na_pbase;
 	int *game_times, t_pbase, *name_len, nl_pbase, i = 2;
 	Game_Player final_winner;
@@ -53,31 +53,6 @@ int main()
 		info_input(name_addr, game_times, name_len);
 		final_winner = rounds_UI(game_times);
 		final_UI(final_winner);
-	}
-	*/
-	int test[20][25] = { {0,0} };
-	int x[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17};
-	int y[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20};
-	int x_len, y_len;
-
-	GET_ARRAY_LEN(x, x_len);
-	GET_ARRAY_LEN(y, y_len);
-
-	for (int i = 0; i < x_len; i++)
-	{
-		test[y[i]][x[i]] = 1;
-	}
-
-	for (int i = 0; i < 20; i++)
-	{
-		for (int j = 0; j < 25; j++)
-		{
-			if (test[i][j] == 1)
-				printf("*");
-			else
-				printf(" ");
-		}
-		printf("\n");
 	}
 
 	system("pause");
@@ -362,4 +337,15 @@ void printf_position(char *data, int initX, int initY)
 	handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(handle, position);
 	printf("%s", data);
+}
+
+void print_scissors(void)
+{
+	int x[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17 };
+	int y[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20 };
+	int pos_len;
+
+	GET_ARRAY_LEN(x, pos_len);
+	for (int i = 0; i < pos_len; i++)
+		printf_position("*", x[i], y[i]);
 }
