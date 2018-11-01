@@ -6,8 +6,11 @@
 #include <time.h>
 
 #define GET_ARRAY_LEN(array,len){len = (sizeof(array) / sizeof(array[0]));}
-#define rounds_Y_bias 12
-#define rounds_user_X_bias 50
+#define rounds_X_text_pos 13
+#define rounds_Y_text_pos 27
+#define rounds_Y_character_pos 12
+#define rounds_Y_current_result_pos 29
+#define rounds_user_X_pos 50
 
 typedef enum
 {
@@ -37,8 +40,8 @@ typedef enum
 
 void welcome_UI(char *option_choice);
 void info_input(char **user_name_addr, int *game_times, int *name_length);
-General_Select computer_select_get(int illegal_bias);
-General_Select user_select_get(int *illegal_bias);
+General_Select computer_select_get();
+General_Select user_select_get();
 Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length);
 Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
@@ -178,7 +181,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 	*game_times = atoi(user_times);
 }
 
-General_Select computer_select_get(int illegal_bias)
+General_Select computer_select_get()
 {
 	int randnum = 0;
 	General_Select computer_select;
@@ -189,21 +192,21 @@ General_Select computer_select_get(int illegal_bias)
 	{
 	case 0:
 		computer_select = rock;
-		print_rock(normal, 0, illegal_bias + rounds_Y_bias);
+		print_rock(normal, 0, rounds_Y_character_pos);
 		break;
 	case 1:
 		computer_select = scissors;
-		print_scissors(normal, 0, illegal_bias + rounds_Y_bias);
+		print_scissors(normal, 0, rounds_Y_character_pos);
 		break;
 	default:
 		computer_select = paper;
-		print_paper(normal, 0, illegal_bias + rounds_Y_bias);
+		print_paper(normal, 0, rounds_Y_character_pos);
 	}
 
 	return computer_select;
 }
 
-General_Select user_select_get(int *illegal_bias)
+General_Select user_select_get()
 {
 	char select_input[256] = { 0 };
 	General_Result select_result = result_Error;
@@ -214,7 +217,7 @@ General_Select user_select_get(int *illegal_bias)
 
 	while (select_result == result_Error)
 	{
-		printf("Computer choice is:");
+		printf_position("Computer choice is:", 0, 11);
 		printf_delta("Your choice is(r/s/p): ", 30, 0);
 		gets(select_input);
 		rewind(stdin);
@@ -235,7 +238,6 @@ General_Select user_select_get(int *illegal_bias)
 		if (select_result == result_Error)
 		{
 			printf("Your input is illegal, please try again!\n\n");
-			*illegal_bias += 3;
 			Sleep(1000);
 		}
 	}
@@ -244,15 +246,15 @@ General_Select user_select_get(int *illegal_bias)
 	{
 	case 'r':
 		user_select = rock;
-		print_rock(normal, rounds_user_X_bias, *illegal_bias + rounds_Y_bias);
+		print_rock(normal, rounds_user_X_pos, rounds_Y_character_pos);
 		break;
 	case 's':
 		user_select = scissors;
-		print_scissors(normal, rounds_user_X_bias, *illegal_bias + rounds_Y_bias);
+		print_scissors(normal, rounds_user_X_pos, rounds_Y_character_pos);
 		break;
 	default:
 		user_select = paper;
-		print_paper(normal, rounds_user_X_bias, *illegal_bias + rounds_Y_bias);
+		print_paper(normal, rounds_user_X_pos, rounds_Y_character_pos);
 	}
 
 	return user_select;
@@ -260,14 +262,12 @@ General_Select user_select_get(int *illegal_bias)
 
 Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 {
-	int remain_games = *game_times, computer_win = 0, user_win = 0, *illegal_bias, ill_bias_pbase, i;
+	int remain_games = *game_times, computer_win = 0, user_win = 0, i;
 	General_Select computer_select, user_select;
 	Game_Player current_winner, final_winner;
 
-	illegal_bias = &ill_bias_pbase;
 	for (remain_games = *game_times; remain_games > 0; remain_games--)
 	{
-		*illegal_bias = 0;
 		system("cls");
 		printf("You have %d times to play!\n\n", remain_games);
 		printf("Score List:\n\n");
@@ -276,21 +276,21 @@ Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 		printf("(YOU): %d\n\n", user_win);
 		printf("COMPUTER: %d\n\n", computer_win);
 
-		user_select = user_select_get(illegal_bias);
-		computer_select = computer_select_get(*illegal_bias);
+		user_select = user_select_get();
+		computer_select = computer_select_get();
 		current_winner = compare(computer_select, user_select);
 		if (current_winner == computer)
 		{
-			printf_delta("Computer win this time!\n", 0, 2);
+			printf_position("Computer win this time!\n", 0, rounds_Y_current_result_pos);
 			computer_win++;
 		}
 		else if (current_winner == user)
 		{
-			printf_delta("You win this time!\n", 0, 2);
+			printf_position("You win this time!\n", 0, rounds_Y_current_result_pos);
 			user_win++;
 		}
 		else
-			printf_delta("Nobody win this time!\n", 0, 2);
+			printf_position("Nobody win this time!\n", 0, rounds_Y_current_result_pos);
 
 		printf("\nPress \"Enter\" to continue game...");
 		rewind(stdin);
@@ -392,8 +392,8 @@ void print_rock(Character_Size size, int bias_X, int bias_Y)
 	{
 		GET_ARRAY_LEN(x_normal, pos_len);
 		for (int i = 0; i < pos_len; i++)
-			printf_position("*", bias_X + x_normal[i] * 2.5, bias_Y + y_normal[i]);
-		printf("\n");
+			printf_position("*", bias_X + x_normal[i] * 2.5, bias_Y+ y_normal[i]);
+		printf_position("Rock", bias_X + rounds_X_text_pos, rounds_Y_text_pos);
 	}
 	else
 	{
@@ -406,8 +406,8 @@ void print_rock(Character_Size size, int bias_X, int bias_Y)
 
 void print_scissors(Character_Size size, int bias_X, int bias_Y)
 {
-	int x_normal[] = { 12,3,4,11,2,5,10,3,5,9,4,8,5,7,6,7,5, 8, 4, 9, 5, 3,10, 5, 2,11, 4, 3,12 };
-	int y_normal[] = {  2,3,3, 3,4,4, 4,5,5,5,6,6,7,7,8,9,9,10,10,11,11,11,12,12,12,13,13,13,14 };
+	int x_normal[] = { 3,4,11,2,5,10,3,5,9,4,8,5,7,6,7,5,8,4, 9, 5, 3,10, 5, 2,11, 4, 3 };
+	int y_normal[] = { 2,2, 2,3,3, 3,4,4,4,5,5,6,6,7,8,8,9,9,10,10,10,11,11,11,12,12,12 };
 	int x_mini[] = {2,3,6,2,3,5,4,5,3,2,6,3,2};
 	int y_mini[] = {2,2,2,3,3,3,4,5,5,5,6,6,6};
 	int pos_len;
@@ -417,7 +417,7 @@ void print_scissors(Character_Size size, int bias_X, int bias_Y)
 		GET_ARRAY_LEN(x_normal, pos_len);
 		for (int i = 0; i < pos_len; i++)
 			printf_position("*", bias_X + x_normal[i] * 2.5, bias_Y + y_normal[i]);
-		printf("\n");
+		printf_position("Scissors", bias_X + rounds_X_text_pos, rounds_Y_text_pos);
 	}
 	else
 	{
@@ -441,7 +441,7 @@ void print_paper(Character_Size size, int bias_X, int bias_Y)
 		GET_ARRAY_LEN(x_normal, pos_len);
 		for (int i = 0; i < pos_len; i++)
 			printf_position("*", bias_X + x_normal[i] * 2, bias_Y + y_normal[i]);
-		printf("\n");
+		printf_position("Paper", bias_X + rounds_X_text_pos, rounds_Y_text_pos);
 	}
 	else
 	{
