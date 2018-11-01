@@ -42,7 +42,9 @@ Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
 void printf_position(char *data, int init_X, int init_Y);
 void printf_delta(char *data, int delta_X, int delta_Y);
-void print_scissors(Character_Size size);
+void print_rock(Character_Size size, int bias);
+void print_scissors(Character_Size size, int bias);
+void print_paper(Character_Size size, int bias);
 
 int main()
 {
@@ -70,8 +72,10 @@ void welcome_UI(char *option_choice)
 	General_Result user_result = result_Error;
 	char user_choice[256] = { 0 };
 
-	printf_position("Welcome to the EXCITING GAME!\n",9,0);
-	print_scissors(mini);
+	printf_position("Welcome to the EXCITING GAME!\n",13,0);
+	print_rock(mini, -1);
+	print_scissors(mini, 19);
+	print_paper(mini, 35);
 	printf_delta("Please choose the option with serial number before it.\n",0,1);
 	printf_delta("a. START!\n",19,1);
 	printf_delta("b. EXIT.\n",19,1);
@@ -239,7 +243,7 @@ General_Select user_select_get(void)
 		break;
 	case 's':
 		user_select = scissors;
-		print_scissors(normal);
+		print_scissors(normal, 0);
 		break;
 	default:
 		user_select = paper;
@@ -364,26 +368,74 @@ void printf_delta(char *data, int delta_X, int delta_Y)
 	printf("%s", data);
 }
 
-void print_scissors(Character_Size size)
+void print_rock(Character_Size size, int bias)
 {
 	int x_normal[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17 };
 	int y_normal[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20 };
-	int x_mini[] = {2,3,6,3,5,4,5,3,6,3,2};
-	int y_mini[] = {2,2,2,3,3,4,5,5,6,6,6};
+	int x_mini[] = { 3,5,7,2,4,6,8,2,4,6,8,2,8,2,3,4,5,6,7,8 };
+	int y_mini[] = { 2,2,2,3,3,3,3,4,4,4,4,5,5,6,6,6,6,6,6,6 };
 	int pos_len;
 
 	if (size == normal)
 	{
 		GET_ARRAY_LEN(x_normal, pos_len);
 		for (int i = 0; i < pos_len; i++)
-			printf_position("*", x_normal[i] * 2.5, y_normal[i]);
+			printf_position("*", bias + x_normal[i] * 2.5, y_normal[i]);
 		printf("\n");
 	}
 	else
 	{
 		GET_ARRAY_LEN(x_mini, pos_len);
 		for (int i = 0; i < pos_len; i++)
-			printf_position("*", x_mini[i] * 2, y_mini[i]);
+			printf_position("*", bias + x_mini[i] * 2, y_mini[i]);
+		printf("\n");
+	}
+}
+
+void print_scissors(Character_Size size, int bias)
+{
+	int x_normal[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17 };
+	int y_normal[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20 };
+	int x_mini[] = {2,3,6,2,3,5,4,5,3,2,6,3,2};
+	int y_mini[] = {2,2,2,3,3,3,4,5,5,5,6,6,6};
+	int pos_len;
+
+	if (size == normal)
+	{
+		GET_ARRAY_LEN(x_normal, pos_len);
+		for (int i = 0; i < pos_len; i++)
+			printf_position("*", bias + x_normal[i] * 2.5, y_normal[i]);
+		printf("\n");
+	}
+	else
+	{
+		GET_ARRAY_LEN(x_mini, pos_len);
+		for (int i = 0; i < pos_len; i++)
+			printf_position("*", bias + x_mini[i] * 2, y_mini[i]);
+		printf("\n");
+	}
+}
+
+void print_paper(Character_Size size, int bias)
+{
+	int x_normal[] = { 17,4,16,3,5,15,2,6,14,3,7,13,4,6,12,5,11,6,10, 7, 9, 8, 9, 7,10, 6,11, 5,12, 6, 4,13, 7, 3,14, 6, 2,15, 5, 3,16, 4,17 };
+	int y_normal[] = { 2 ,3, 3,4,4, 4,5,5, 5,6,6, 6,7,7, 7,8, 8,9, 9,10,10,11,12,12,13,13,14,14,15,15,15,16,16,16,17,17,17,18,18,18,19,19,20 };
+	int x_mini[] = { 4,5,3,4,5,6,2,3,4,5,6,7,7,6,5,4,3,2,6,5,4,3,5,4 };
+	int y_mini[] = { 2,2,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,7,7 };
+	int pos_len;
+
+	if (size == normal)
+	{
+		GET_ARRAY_LEN(x_normal, pos_len);
+		for (int i = 0; i < pos_len; i++)
+			printf_position("*", bias + x_normal[i] * 2.5, y_normal[i]);
+		printf("\n");
+	}
+	else
+	{
+		GET_ARRAY_LEN(x_mini, pos_len);
+		for (int i = 0; i < pos_len; i++)
+			printf_position("*", bias + x_mini[i] * 2, y_mini[i]);
 		printf("\n");
 	}
 }
