@@ -37,8 +37,8 @@ typedef enum
 
 void welcome_UI(char *option_choice);
 void info_input(char **user_name_addr, int *game_times, int *name_length);
-General_Select computer_select_get(void);
-General_Select user_select_get(void);
+General_Select computer_select_get(int illegal_bias);
+General_Select user_select_get(int *illegal_bias);
 Game_Player rounds_UI(int *game_times);
 Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
@@ -178,7 +178,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 	*game_times = atoi(user_times);
 }
 
-General_Select computer_select_get(void)
+General_Select computer_select_get(int illegal_bias)
 {
 	int randnum = 0;
 	General_Select computer_select;
@@ -189,21 +189,21 @@ General_Select computer_select_get(void)
 	{
 	case 0:
 		computer_select = rock;
-		print_rock(normal, 0, rounds_Y_bias);
+		print_rock(normal, 0, illegal_bias + rounds_Y_bias);
 		break;
 	case 1:
 		computer_select = scissors;
-		print_scissors(normal, 0, rounds_Y_bias);
+		print_scissors(normal, 0, illegal_bias + rounds_Y_bias);
 		break;
 	default:
 		computer_select = paper;
-		print_paper(normal, 0, rounds_Y_bias);
+		print_paper(normal, 0, illegal_bias + rounds_Y_bias);
 	}
 
 	return computer_select;
 }
 
-General_Select user_select_get(void)
+General_Select user_select_get(int *illegal_bias)
 {
 	char select_input[256] = { 0 };
 	General_Result select_result = result_Error;
@@ -234,7 +234,8 @@ General_Select user_select_get(void)
 		}
 		if (select_result == result_Error)
 		{
-			printf("Your input is illegal, please try again!\n");
+			printf("Your input is illegal, please try again!\n\n");
+			*illegal_bias += 2;
 			Sleep(1000);
 		}
 	}
@@ -243,15 +244,15 @@ General_Select user_select_get(void)
 	{
 	case 'r':
 		user_select = rock;
-		print_rock(normal, rounds_user_X_bias, rounds_Y_bias);
+		print_rock(normal, rounds_user_X_bias, *illegal_bias + rounds_Y_bias);
 		break;
 	case 's':
 		user_select = scissors;
-		print_scissors(normal, rounds_user_X_bias, rounds_Y_bias);
+		print_scissors(normal, rounds_user_X_bias, *illegal_bias + rounds_Y_bias);
 		break;
 	default:
 		user_select = paper;
-		print_paper(normal, rounds_user_X_bias, rounds_Y_bias);
+		print_paper(normal, rounds_user_X_bias, *illegal_bias + rounds_Y_bias);
 	}
 
 	return user_select;
@@ -259,20 +260,22 @@ General_Select user_select_get(void)
 
 Game_Player rounds_UI(int *game_times)
 {
-	int remain_games = *game_times, computer_win = 0, user_win = 0;
+	int remain_games = *game_times, computer_win = 0, user_win = 0, *illegal_bias, ill_bias_pbase;
 	General_Select computer_select, user_select;
 	Game_Player current_winner, final_winner;
 
+	illegal_bias = &ill_bias_pbase;
 	for (remain_games = *game_times; remain_games > 0; remain_games--)
 	{
+		*illegal_bias = 0;
 		system("cls");
 		printf("You have %d times to play!\n", remain_games);
 		printf("Score List:\n\n");
 		printf("YOU: %d\n", user_win);
 		printf("COMPUTER: %d\n\n", computer_win);
 
-		user_select = user_select_get();
-		computer_select = computer_select_get();
+		user_select = user_select_get(illegal_bias);
+		computer_select = computer_select_get(*illegal_bias);
 		current_winner = compare(computer_select, user_select);
 		if (current_winner == computer)
 		{
