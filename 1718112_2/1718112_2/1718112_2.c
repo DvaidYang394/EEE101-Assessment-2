@@ -32,6 +32,7 @@ General_Select user_select_get(void);
 Game_Player rounds_UI(int *game_times);
 Game_Player compare(General_Select computer_select, General_Select user_select);
 void final_UI(Game_Player final_winner);
+void printf_position(char *data, int initX, int initY);
 
 int main()
 {
@@ -60,10 +61,10 @@ void welcome_UI(char *option_choice)
 	General_Result user_result = result_Error;
 	char user_choice[256] = { 0 };
 
-	printf("Welcome to the EXCITING GAME!\n");
+	printf_position("Welcome to the EXCITING GAME!\n\n",9,0);
 	printf("Please choose the option with serial number before it.\n\n");
-	printf("\t\t\ta. START!\n\n");
-	printf("\t\t\tb. EXIT.\n\n");
+	printf_position("a. START!\n\n",19,4);
+	printf_position("b. EXIT.\n\n",19,6);
 
 	while (user_result == result_Error)
 	{
@@ -320,4 +321,17 @@ void final_UI(Game_Player final_winner)
 		printf("Nobody win the game =_=\n");
 	}
 	Sleep(1500);
+}
+
+void printf_position(char *data, int initX, int initY)
+{
+	HANDLE handle;
+	COORD position;
+	CONSOLE_SCREEN_BUFFER_INFO console_buf;
+
+	position.X = initX;
+	position.Y = initY;
+	handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
+	printf("%s", data);
 }
