@@ -8,7 +8,6 @@
     version:    4.0.0
     Author:     Ziqi Yang
     Date:       Nov 3, 2018
-    Time:       2: 10 am.
 ### Update details
     1. Improve:
         The latest version with full comments in the c file.
