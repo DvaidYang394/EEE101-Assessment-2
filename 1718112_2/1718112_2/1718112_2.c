@@ -1,3 +1,25 @@
+/*************************************************************************************
+ * Copyright (C) 2018
+ * @File name: 1718112_2.c
+ * @Author: Ziqi Yang
+ * @Version: 3.1.0
+ * @Date: 2018-11-2
+ * @Description: EEE101-Assessment-2 Project
+ *				 A game of rock, scissors and paper for user to against computer.
+*************************************************************************************/
+
+/**
+ * @brief	libraries for the project.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ *
+ * @header	stdio.h		for use of printf(), gets(), rewind(), sizeof(), getchar()
+ * @header	string.h	for use of strlen()
+ * @header	Windows.h	for use of Sleep(), GetStdHandle(), GetConsoleScreenBufferInfo(), SetConsoleCursorPosition()
+ * @header	ctype.h		for use of isdigit()
+ * @header	stdlib.h	for use of system(), srand(), rand()
+ * @header	time.h		for use of time()
+ */
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
@@ -5,6 +27,20 @@
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * @brief	define for the project.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ *
+ * @define	GET_ARRAY_LEN					get the length of array.
+ * @define	rounds_X_text_pos				x-axis coordinates for character text in console in rounds UI.
+ * @define	rounds_Y_text_pos				y-axis coordinates for character text in console in rounds UI.
+ * @define	rounds_Y_character_pos			y-axis coordinates for character pictures in console in rounds UI.
+ * @define	rounds_X_current_result_pos		x-axis coordinates for current result text in console in rounds UI.
+ * @define	rounds_Y_current_result_pos		y-axis coordinates for current result text in console in rounds UI.
+ * @define	rounds_user_X_pos				x-axis coordinates for user character picture in console in rounds UI.
+ * @define	X_LENGTH						the width of console.
+ */
 #define GET_ARRAY_LEN(array,len){len = (sizeof(array) / sizeof(array[0]));}
 #define rounds_X_text_pos 13
 #define rounds_Y_text_pos 29
@@ -14,6 +50,16 @@
 #define rounds_user_X_pos 50
 #define X_LENGTH 100
 
+/**
+ * @enum	General_Select
+ * @brief	a enum type to represent the selected character of computer or user.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ *
+ * @var	rock		rock selected.
+ * @var	scissors	scissors selected.
+ * @var	paper		paper selected.
+ */
 typedef enum
 {
 	rock = 0,
@@ -21,12 +67,31 @@ typedef enum
 	paper
 } General_Select;
 
+/**
+ * @enum	Character_Size
+ * @brief	a enum type to represent the size of the character picture needed to print.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ *
+ * @var	mini	print mini size character picture.
+ * @var normal	print normal size character picture.
+ */
 typedef enum
 {
 	mini = 0,
 	normal
 } Character_Size;
 
+/**
+ * @enum	Game_Player
+ * @brief	a enum type to represent the winner of game.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ *
+ * @var	computer	winner is computer.
+ * @var	user		winner is user.
+ * @var	none		nobody win.
+ */
 typedef enum
 {
 	computer = 0,
@@ -34,12 +99,22 @@ typedef enum
 	none
 } Game_Player;
 
+/**
+ * @enum	General_Result
+ * @brief	a enum type to represent the input result.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ *
+ * @var	result_OK		the input is legal.
+ * @var	result_Error	the input is illegal.
+ */
 typedef enum
 {
 	result_OK = 0,
 	result_Error
 } General_Result;
 
+/* Function declaration Start. */
 void welcome_UI(char *option_choice);
 void info_input(char **user_name_addr, int *game_times, int *name_length);
 General_Select computer_select_get();
@@ -52,11 +127,25 @@ void printf_delta(char *data, int delta_X, int delta_Y);
 void print_rock(Character_Size size, int bias_X, int bias_Y);
 void print_scissors(Character_Size size, int bias_X, int bias_Y);
 void print_paper(Character_Size size, int bias_X, int bias_Y);
+/* Function declaration End. */
 
-int main()
+/**
+ * @name	main
+ * @brief	main function of the project.
+ * @author	Ziqi Yang
+ * @date	2018-11-2
+ * @return	0 for success, other for fail.
+ */
+int main(void)
 {
-	char *option_choice, c_pbase, **name_addr, *na_pbase;
-	int *game_times, t_pbase, *name_len, nl_pbase, i = 2;
+	char *option_choice, c_pbase, **name_addr, *na_pbase;	/* option_choice: pointer to c_pbase. 
+															   c_pbase: storage choice that start or exit game.
+															   name_addr: pointer to na_pbase.
+															   na_pbase: the first element of name string. */
+	int *game_times, t_pbase, *name_len, nl_pbase;			/* game_times: pointer to t_pbase.
+															   t_pbase: game times.
+															   name_len: pointer to nl_pbase.
+															   nl_pbase: the length of user name. */
 	Game_Player final_winner;
 	option_choice = &c_pbase;
 	game_times = &t_pbase;
