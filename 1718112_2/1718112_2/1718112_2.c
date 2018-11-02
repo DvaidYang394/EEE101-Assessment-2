@@ -91,6 +91,7 @@ void welcome_UI(char *option_choice)
 		printf_position("Your choice is(a/b): ",12,15);
 		rewind(stdin);
 		gets(user_choice);
+		rewind(stdin);
 
 		if (strlen(user_choice) == 1)
 		{
@@ -138,6 +139,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		printf("Enter your name first, press \"ENTER\" to confirm:");
 		rewind(stdin);
 		gets(user_name);
+		rewind(stdin);
 
 		*name_length = strlen(user_name);
 		if (strlen(user_name) != 0)
@@ -165,6 +167,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		printf("Enter the times you want to play(must be a POSITIVE INTEGER and SMALLER THAN 50!):");
 		rewind(stdin);
 		gets(user_times);
+		rewind(stdin);
 
 		if (strlen(user_times) != 0)
 		{
@@ -235,6 +238,7 @@ General_Select user_select_get()
 		printf_delta("Your choice is(r/s/p): ", 30, 0);
 		rewind(stdin);
 		gets(select_input);
+		rewind(stdin);
 
 		if (strlen(select_input) == 1)
 		{
@@ -312,6 +316,7 @@ Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 		printf("\nPress \"Enter\" to continue game...");
 		rewind(stdin);
 		while (getchar() != '\n');
+		rewind(stdin);
 	}
 
 	if (computer_win > user_win) final_winner = computer;
@@ -374,6 +379,7 @@ void final_UI(Game_Player final_winner, char *option_choice)
 		printf("Would you like to play again(y/n): ");
 		rewind(stdin);
 		gets(user_choice);
+		rewind(stdin);
 
 		if (strlen(user_choice) == 1)
 		{
