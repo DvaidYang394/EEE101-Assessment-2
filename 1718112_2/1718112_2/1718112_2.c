@@ -84,7 +84,7 @@ void welcome_UI(char *option_choice)
 
 	printf_position("Welcome to the EXCITING GAME!\n",34,0);
 	print_rock(mini, 21, 0);
-	print_scissors(mini, 41, 0);
+	print_scissors(mini, 40, 0);
 	print_paper(mini, 57, 0);
 	printf_position("Please choose the option with serial number before it.\n",22,9);
 	printf_delta("a. START!\n",41,1);
@@ -465,23 +465,23 @@ void printf_delta(char *data, int delta_X, int delta_Y)
 
 void print_rock(Character_Size size, int bias_X, int bias_Y)
 {
-	int x_normal[] = { 5,7,9,11,4,6,8,10,12,2,3,4,6,8,10,12,2,4,6,8,10,12,2,4,5,6,7,8,9,10,11,12,2,12,2,12,2,3,4,5,6,7,8,9,10,11,12 };
-	int y_normal[] = { 2,2,2, 2,3,3,3, 3, 3,4,4,4,4,4, 4, 4,5,5,5,5, 5, 5,6,6,6,6,6,6,6, 6, 6, 6,7, 7,8, 8,9,9,9,9,9,9,9,9, 9, 9, 9 };
-	int x_mini[] = { 3,5,7,2,4,6,8,2,4,6,8,2,8,2,3,4,5,6,7,8 };
-	int y_mini[] = { 2,2,2,3,3,3,3,4,4,4,4,5,5,6,6,6,6,6,6,6 };
-	int pos_len;
+	int x_normal[] = { 6,7,8,5,6,7,8,9,4,5,6,7,8,9,10,3,4,5,6,7,8,9,10,11,2,3,4,5,6,7,8,9,10,11,12,2,3,4,5,6,7,8,9,10,11,12,12,11,10,9,8,7,6,5,4,3,2,11,10,9,8,7,6,5,4,3,10, 9, 8, 7, 6, 5, 4, 9, 8, 7, 6, 5, 8, 7, 6 };
+	int y_normal[] = { 2,2,2,3,3,3,3,3,4,4,4,4,4,4, 4,5,5,5,5,5,5,5, 5, 5,6,6,6,6,6,6,6,6, 6, 6, 6,7,7,7,7,7,7,7,7, 7, 7, 7, 8, 8, 8,8,8,8,8,8,8,8,8, 9, 9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,11,11,11,11,11,12,12,12 };
+	int x_mini[] = { 4,5,3,4,5,6,2,3,4,5,6,7,7,6,5,4,3,2,6,5,4,3,5,4 };
+	int y_mini[] = { 2,2,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,7,7 };
+	int pos_len, i;
 
 	if (size == normal)
 	{
 		GET_ARRAY_LEN(x_normal, pos_len);
-		for (int i = 0; i < pos_len; i++)
-			printf_position("*", bias_X + x_normal[i] * 2.5, bias_Y+ y_normal[i]);
+		for (i = 0; i < pos_len; i++)
+			printf_position("*", bias_X + x_normal[i] * 2, bias_Y + y_normal[i]);
 		printf_position("Rock", bias_X + rounds_X_text_pos, rounds_Y_text_pos);
 	}
 	else
 	{
 		GET_ARRAY_LEN(x_mini, pos_len);
-		for (int i = 0; i < pos_len; i++)
+		for (i = 0; i < pos_len; i++)
 			printf_position("*", bias_X + x_mini[i] * 2, bias_Y + y_mini[i]);
 		printf("\n");
 	}
@@ -493,19 +493,19 @@ void print_scissors(Character_Size size, int bias_X, int bias_Y)
 	int y_normal[] = { 2,2, 2,3,3, 3,4,4,4,5,5,6,6,7,8,8,9,9,10,10,10,11,11,11,12,12,12 };
 	int x_mini[] = {2,3,6,2,3,5,4,5,3,2,6,3,2};
 	int y_mini[] = {2,2,2,3,3,3,4,5,5,5,6,6,6};
-	int pos_len;
+	int pos_len, i;
 
 	if (size == normal)
 	{
 		GET_ARRAY_LEN(x_normal, pos_len);
-		for (int i = 0; i < pos_len; i++)
+		for (i = 0; i < pos_len; i++)
 			printf_position("*", bias_X + x_normal[i] * 2.5, bias_Y + y_normal[i]);
 		printf_position("Scissors", bias_X + rounds_X_text_pos, rounds_Y_text_pos);
 	}
 	else
 	{
 		GET_ARRAY_LEN(x_mini, pos_len);
-		for (int i = 0; i < pos_len; i++)
+		for (i = 0; i < pos_len; i++)
 			printf_position("*", bias_X + x_mini[i] * 2, bias_Y + y_mini[i]);
 		printf("\n");
 	}
@@ -513,24 +513,34 @@ void print_scissors(Character_Size size, int bias_X, int bias_Y)
 
 void print_paper(Character_Size size, int bias_X, int bias_Y)
 {
-	int x_normal[] = { 6,7,8,5,6,7,8,9,4,5,6,7,8,9,10,3,4,5,6,7,8,9,10,11,2,3,4,5,6,7,8,9,10,11,12,2,3,4,5,6,7,8,9,10,11,12,12,11,10,9,8,7,6,5,4,3,2,11,10,9,8,7,6,5,4,3,10, 9, 8, 7, 6, 5, 4, 9, 8, 7, 6, 5, 8, 7, 6 };
-	int y_normal[] = { 2,2,2,3,3,3,3,3,4,4,4,4,4,4, 4,5,5,5,5,5,5,5, 5, 5,6,6,6,6,6,6,6,6, 6, 6, 6,7,7,7,7,7,7,7,7, 7, 7, 7, 8, 8, 8,8,8,8,8,8,8,8,8, 9, 9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,11,11,11,11,11,12,12,12 };
-	int x_mini[] = { 4,5,3,4,5,6,2,3,4,5,6,7,7,6,5,4,3,2,6,5,4,3,5,4 };
-	int y_mini[] = { 2,2,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,7,7 };
-	int pos_len;
+	int x_normal[] = { 2,2,2,2,2,2,2,2, 2, 2, 2,2,2,2,2,2,2,2,2,2,2,2 };
+	int y_normal[] = { 2,3,4,5,6,7,8,9,10,11,12 };
+	int x_mini[] = { 2,2,2,2,2,2,2,2,2,2,2,2 };
+	int y_mini[] = { 2,3,4,5,6,7 };
+	int pos_x_len, pos_y_len, i, j;
 
 	if (size == normal)
 	{
-		GET_ARRAY_LEN(x_normal, pos_len);
-		for (int i = 0; i < pos_len; i++)
-			printf_position("*", bias_X + x_normal[i] * 2, bias_Y + y_normal[i]);
+		GET_ARRAY_LEN(x_normal, pos_x_len);
+		GET_ARRAY_LEN(y_normal, pos_y_len);
+		for (i = 0; i < pos_y_len; i++)
+		{
+			printf_position("", bias_X + x_normal[i] * 2.5, bias_Y + y_normal[i]);
+			for (j = 0; j < pos_x_len; j++)
+				printf("~");
+		}
 		printf_position("Paper", bias_X + rounds_X_text_pos, rounds_Y_text_pos);
 	}
 	else
 	{
-		GET_ARRAY_LEN(x_mini, pos_len);
-		for (int i = 0; i < pos_len; i++)
-			printf_position("*", bias_X + x_mini[i] * 2, bias_Y + y_mini[i]);
+		GET_ARRAY_LEN(x_mini, pos_x_len);
+		GET_ARRAY_LEN(y_mini, pos_y_len);
+		for (i = 0; i < pos_y_len; i++)
+		{
+			printf_position("", bias_X + x_normal[i] * 2, bias_Y + y_normal[i]);
+			for (j = 0; j < pos_x_len; j++)
+				printf("~");
+		}
 		printf("\n");
 	}
 }

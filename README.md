@@ -5,24 +5,13 @@
     IDE: Visual Studio
 ## Update Log:
 ### Basic information
-    version:    3.0.0
+    version:    3.1.0
     Author:     Ziqi Yang
     Date:       Nov 2, 2018
-    Time:       13:09 pm.
+    Time:       15:30 pm.
 ### Update details
-    1. Add functions:
-        Notice user that can exit game immediately with Ctrl + C in info input and rounds UI.
-
-    2. Improve:
-        1) Change the print method of most of elements which has illegal input check to print at certain
-        position.
-
-        2) Change the background colour to blue and fix the size of windows.
-
-        3) Optimize text layout.
-    
-    3. Repair bugs:
-        Repair some bugs of re-input in original position.
+    1. Improve:
+        Change the picture of rock and paper characters.
 ### Introduction:
     This the new version, which improve the vision of user in this game. The pictures of rock, scissors 
     and paper is added in the welcome UI and rounds UI.
