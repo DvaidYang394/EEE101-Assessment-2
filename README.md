@@ -5,13 +5,13 @@
     IDE: Visual Studio
 ## Update Log:
 ### Basic information
-    version:    3.1.0
+    version:    4.0.0
     Author:     Ziqi Yang
-    Date:       Nov 2, 2018
-    Time:       15:30 pm.
+    Date:       Nov 3, 2018
+    Time:       2: 10 am.
 ### Update details
     1. Improve:
-        Change the picture of rock and paper characters.
+        The latest version with full comments in the c file.
 ### Introduction:
     This the new version, which improve the vision of user in this game. The pictures of rock, scissors 
     and paper is added in the welcome UI and rounds UI.
