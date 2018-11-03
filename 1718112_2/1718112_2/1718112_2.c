@@ -116,30 +116,30 @@ void print_paper(Character_Size size, int bias_X, int bias_Y);
  */
 int main(void)
 {
-	char *option_choice, c_pbase, **name_addr, *na_pbase;	/* Declare variables:
-															   option_choice: pointer to c_pbase. 
-															   c_pbase: store choice that start or exit game.
-															   name_addr: pointer to na_pbase.
-															   na_pbase: store the first element of name string. */
-	int *game_times, t_pbase, *name_len, nl_pbase;			/* Declare variables:
-															   game_times: pointer to t_pbase.
-															   t_pbase: store game times.
-															   name_len: pointer to nl_pbase.
-															   nl_pbase: store the length of user name. */
+	char *pOption_choice, option_choice, **pName_addr, *name_addr;	/* Declare variables:
+																	   pOption_choice: pointer to option_choice. 
+																	   option_choice: store choice that start or exit game.
+																	   pName_addr: pointer to name_addr.
+																	   name_addr: store the first element of name string. */
+	int *pGame_times, game_times, *pName_len, name_len;				/* Declare variables:
+																	   pGame_times: pointer to game_times.
+																	   game_times: store game times.
+																	   pName_len: pointer to name_len.
+																	   name_len: store the length of user name. */
 	Game_Player final_winner;								/* Declare final_winner to store the final winner of the game. */
-	option_choice = &c_pbase;								/* Assigning the variable address to the pointer. */
-	game_times = &t_pbase;
-	name_len = &nl_pbase;
-	name_addr = &na_pbase;
+	pOption_choice = &option_choice;						/* Assigning the variable address to the pointer. */
+	pGame_times = &game_times;
+	pName_len = &name_len;
+	pName_addr = &name_addr;
 
 	system("mode con cols=100 lines=34");					/* Set the width of console is 100 and height is 34. */
 	system("color 1f");										/* Set the color of console background in blue and font in white. */
-	welcome_UI(option_choice);								/* Call welcome_UI function. */
-	while (*option_choice == 'a' || *option_choice == 'y')	/* When user choose start or play again the game. */
+	welcome_UI(pOption_choice);								/* Call welcome_UI function. */
+	while (option_choice == 'a' || option_choice == 'y')	/* When user choose start or play again the game. */
 	{
-		info_input(name_addr, game_times, name_len);					/* Call info_input function. */
-		final_winner = rounds_UI(name_addr, game_times, name_len);		/* Call rounds_UI function. */
-		final_UI(final_winner, option_choice);							/* Call final_UI function. */
+		info_input(pName_addr, pGame_times, pName_len);					/* Call info_input function. */
+		final_winner = rounds_UI(pName_addr, pGame_times, pName_len);		/* Call rounds_UI function. */
+		final_UI(final_winner, pOption_choice);							/* Call final_UI function. */
 	}
 
 	return 0;												/* Programm run successfully. */

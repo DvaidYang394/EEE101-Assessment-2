@@ -1,7 +1,7 @@
 ﻿  1718112_2.c
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(189): warning C4013: 'gets' undefined; assuming extern returning int
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(256): warning C4018: '<': signed/unsigned mismatch
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(283): warning C4018: '<': signed/unsigned mismatch
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(686): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(723): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(173): warning C4013: 'gets' undefined; assuming extern returning int
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(240): warning C4018: '<': signed/unsigned mismatch
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(267): warning C4018: '<': signed/unsigned mismatch
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(670): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+f:\xjtlu\lessons\year 2 semester 1\eee101\assessment 2\1718112_2\1718112_2\1718112_2.c(707): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
   1718112_2.vcxproj -> F:\XJTLU\Lessons\Year 2 Semester 1\EEE101\Assessment 2\1718112_2\Debug\1718112_2.exe
