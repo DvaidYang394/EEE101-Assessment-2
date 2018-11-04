@@ -127,7 +127,7 @@ int main(void)
 																	   pName_len: pointer to name_len.
 																	   name_len: store the length of user name. */
 	Game_Player final_winner;								/* Declare final_winner to store the final winner of the game. */
-	pOption_choice = &option_choice;						/* Assigning the variable address to the pointer. */
+	pOption_choice = &option_choice;
 	pGame_times = &game_times;
 	pName_len = &name_len;
 	pName_addr = &name_addr;
@@ -138,7 +138,7 @@ int main(void)
 	while (option_choice == 'a' || option_choice == 'y')	/* When user choose start or play again the game. */
 	{
 		info_input(pName_addr, pGame_times, pName_len);					/* Call info_input function. */
-		final_winner = rounds_UI(pName_addr, pGame_times, pName_len);		/* Call rounds_UI function. */
+		final_winner = rounds_UI(pName_addr, pGame_times, pName_len);	/* Call rounds_UI function. */
 		final_UI(final_winner, pOption_choice);							/* Call final_UI function. */
 	}
 
@@ -169,9 +169,9 @@ void welcome_UI(char *option_choice)
 	while (user_result == result_Error)						/* When user input is illegal. */
 	{
 		printf_position("Your choice is(a/b): ",34,15);
-		rewind(stdin);										/* Clear input buffer. */
-		gets(user_choice);									/* Get user input. */
-		rewind(stdin);										/* Clear input buffer again. */
+		rewind(stdin);
+		gets(user_choice);
+		rewind(stdin);
 
 		if (strlen(user_choice) == 1)						/* If the input is 1 character. */
 		{
@@ -180,7 +180,7 @@ void welcome_UI(char *option_choice)
 			case 'a':
 			case 'b':
 				user_result = result_OK;					/* The choice is 'a' or 'b', input is legal. */
-				break;										/* Break the switch. */
+				break;
 			default:
 				user_result = result_Error;					/* The choice is others, input is illegal. */
 			}
@@ -198,9 +198,9 @@ void welcome_UI(char *option_choice)
 		}
 	}
 
-	if (user_choice[0] == 'a')								/* If the choice is 'a'(START). */
+	if (user_choice[0] == 'a')
 		printf_delta("The game will start!", 34, 1);
-	else													/* If the choice is 'b'(Exit). */
+	else
 		printf_delta("The game will exit...", 34, 1);
 
 	Sleep(1000);
@@ -225,7 +225,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 	General_Result name_result = result_Error, times_result = result_Error;		/* Declare to store the info_input result. */
 	*user_name_addr = user_name;
 
-	while (name_result == result_Error)						/* When the name input is illegal. */
+	while (name_result == result_Error)
 	{
 		system("cls");										/* Clear console. */
 		printf("(If you want, press Ctrl + C to exit immediately during the game.)\n\n");
@@ -234,8 +234,8 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		gets(user_name);
 		rewind(stdin);
 
-		*name_length = strlen(user_name);					/* Get the length of user name. */
-		if (strlen(user_name) != 0)							/* If anything is input. */
+		*name_length = strlen(user_name);
+		if (strlen(user_name) != 0)
 		{
 			for (i = 0; i < strlen(user_name); i++)			/* Check if the name is space. */
 			{
@@ -254,7 +254,7 @@ void info_input(char **user_name_addr, int *game_times, int *name_length)
 		}
 	}
 
-	while (times_result == result_Error)					/* When the times input is illegal. */
+	while (times_result == result_Error)
 	{
 		times_result = result_OK;							/* Pretend the times input is legal at first. */
 		printf_position("Enter the times you want to play(must be a POSITIVE INTEGER and SMALLER THAN 50!):", 0, 4);
@@ -309,16 +309,16 @@ General_Select computer_select_get(void)
 	switch (randnum)
 	{
 	case 0:
-		computer_select = rock;								/* Computer select rock. */
-		print_rock(normal, 0, rounds_Y_character_pos);		/* Print normal size picture of rock. */
+		computer_select = rock;								/* Check and print computer character. */
+		print_rock(normal, 0, rounds_Y_character_pos);
 		break;
 	case 1:
-		computer_select = scissors;							/* Computer select scissors. */
-		print_scissors(normal, 0, rounds_Y_character_pos);	/* Print normal size picture of scissors. */
+		computer_select = scissors;
+		print_scissors(normal, 0, rounds_Y_character_pos);
 		break;
 	default:
-		computer_select = paper;							/* Computer select paper. */
-		print_paper(normal, 0, rounds_Y_character_pos);		/* Print normal size picture of paper. */
+		computer_select = paper;
+		print_paper(normal, 0, rounds_Y_character_pos);
 	}
 
 	return computer_select;									/* Return the character computer selected. */
@@ -341,7 +341,7 @@ General_Select user_select_get(void)
 	printf("Please use a letter to choose what you want, the meanings are as follows:\n");
 	printf("r: Rock \t\t s: Scissors \t\t p: Paper\n\n");
 
-	while (select_result == result_Error)					/* When the user select is illegal. */
+	while (select_result == result_Error)
 	{
 		printf_position("Computer choice is:", 0, 13);
 		printf_delta("Your choice is(r/s/p): ", 30, 0);
@@ -349,7 +349,7 @@ General_Select user_select_get(void)
 		gets(select_input);
 		rewind(stdin);
 
-		if (strlen(select_input) == 1)						/* If the input is 1 character. */
+		if (strlen(select_input) == 1)
 		{
 			switch (select_input[0])
 			{
@@ -362,7 +362,7 @@ General_Select user_select_get(void)
 				select_result = result_Error;				/* The input is illegal. */
 			}
 		}
-		if (select_result == result_Error)					/* If the user select input is illegal. */
+		if (select_result == result_Error)
 		{
 			printf("\nYour input is illegal, please try again!\n");
 			Sleep(1500);
@@ -431,12 +431,12 @@ Game_Player rounds_UI(char **user_name_addr, int *game_times, int *name_length)
 		if (current_winner == computer)
 		{
 			printf_position("Computer wins this time!\n", rounds_X_current_result_pos, rounds_Y_current_result_pos);
-			computer_win++;									/* Add 1 to the times of computer win. */
+			computer_win++;									/* Add times of computer win. */
 		}
 		else if (current_winner == user)
 		{
 			printf_position("You win this time!\n", rounds_X_current_result_pos, rounds_Y_current_result_pos);
-			user_win++;										/* Add 1 to the times of user win. */
+			user_win++;										/* Add times of user win. */
 		}
 		else
 			printf_position("Nobody wins this time!\n", rounds_X_current_result_pos, rounds_Y_current_result_pos);
@@ -520,14 +520,14 @@ void final_UI(Game_Player final_winner, char *option_choice)
 		printf_delta("Nobody win the game =_=\n\n", 38, 0);
 	}
 
-	while (user_result == result_Error)						/* When the user_result is illegal. */
+	while (user_result == result_Error)
 	{
 		printf_position("Would you like to play again(y/n): ", 32, 2);
 		rewind(stdin);
 		gets(user_choice);
 		rewind(stdin);
 
-		if (strlen(user_choice) == 1)						/* If the input is 1 character. */
+		if (strlen(user_choice) == 1)
 		{
 			switch (user_choice[0])							/* Judge the user choice. */
 			{
@@ -602,8 +602,8 @@ void printf_delta(char *data, int delta_X, int delta_Y)
 	GetConsoleScreenBufferInfo(hd, &console_buf);			/* Get buffer info of console. */
 	position.X = console_buf.dwCursorPosition.X;			/* Get current x-axis coordinates of cursor. */
 	position.Y = console_buf.dwCursorPosition.Y;			/* Get current y-axis coordinates of cursor. */
-	position.X += delta_X;									/* Set the x-axis coordinates. */
-	position.Y += delta_Y;									/* Set the y-axis coordinates. */
+	position.X += delta_X;
+	position.Y += delta_Y;
 	
 	SetConsoleCursorPosition(hd, position);					/* Move the cursor to the set position of console. */
 	printf("%s", data);										/* Print the data. */
